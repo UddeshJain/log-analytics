@@ -1,12 +1,12 @@
 # Log Analytics
 
-Log Analytics is first project for Udacity's Full Stack Web Developer Nanodegree Program.
+Log Analytics is the first project for Udacity's Full Stack Web Developer Nanodegree Program.
 
 ## Project Overview
 
 ___
 
-This is a internal reporting tool for newspaper site to discover what kind of articles the site's readers like and it also shows the error log for a perticular date. This project uses **_Python3_** programming language and **_Postgresql_** as Database. It mainly fullfills three queries.
+This is an internal reporting tool for newspaper site to discover what kind of articles the site's readers like and it also shows the error log for a particular date. This project uses **_Python3_** programming language and **_Postgresql_** as Database. It mainly fulfills three queries.
 
     1. What are the most popular three articles of all time?
     2. Who are the most popular article authors of all time?
@@ -21,13 +21,13 @@ ___
 * Download and install [vagrant](https://www.vagrantup.com/)
 * Download this [vagrant configuration file](https://s3.amazonaws.com/video.udacity-data.com/topher/2018/April/5acfbfa3_fsnd-virtual-machine/fsnd-virtual-machine.zip) and extract it.
 * Now move inside the extracted folder using ```cd``` command in terminal.
-* Inside this folder there is one folder called *vagrant* Run command ```cd vagrant/``` to get in.
+* Inside this folder, there is one folder called *vagrant* Run command ```cd vagrant/``` to get in.
 * To start virtual machine run command ```vagrant up```, it will take some time so be patience.
 * When ```vagrant up``` is finished running you will get your shell prompt back. At this point, you can run ```vagrant ssh``` to log in to your newly installed Linux VM!
 * Inside the VM, change directory to ```/vagrant```.
 * Now download data file [here](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) and put this file inside *vagrant* folder.
 * To load the data, ```cd``` into the ```vagrant``` directory and use the command ```psql -d news -f newsdata.sql```.
-* Now run ```psql``` comman and create the views given below.
+* Now run ```psql``` command and create the views given below.
 
 ## Views
 
