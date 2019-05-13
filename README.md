@@ -1,6 +1,6 @@
 # Log Analytics
 
-Log Analytics is the first project for Udacity's Full Stack Web Developer Nanodegree Program.
+Log Analytics is first the project for Udacity's Full Stack Web Developer Nanodegree Program.
 
 ## Project Overview
 
@@ -19,29 +19,31 @@ ___
 * Download and install [python](https://www.python.org/)
 * Download and install [virtual box](https://www.virtualbox.org/)
 * Download and install [vagrant](https://www.vagrantup.com/)
-* Download this [vagrant configuration file](https://s3.amazonaws.com/video.udacity-data.com/topher/2018/April/5acfbfa3_fsnd-virtual-machine/fsnd-virtual-machine.zip) and extract it.
-* Now move inside the extracted folder using ```cd``` command in terminal.
-* Inside this folder, there is one folder called *vagrant* Run command ```cd vagrant/``` to get in.
-* To start virtual machine run command ```vagrant up```, it will take some time so be patience.
+* Clone this repository and navigate inside it.
+* To start virtual machine run command ```vagrant up``` in the terminal, it will take some time so be patience.
 * When ```vagrant up``` is finished running you will get your shell prompt back. At this point, you can run ```vagrant ssh``` to log in to your newly installed Linux VM!
 * Inside the VM, change directory to ```/vagrant```.
-* Now download data file [here](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) and put this file inside *vagrant* folder.
-* To load the data, ```cd``` into the ```vagrant``` directory and use the command ```psql -d news -f newsdata.sql```.
-* Now run ```psql``` command and create the views given below.
+* Now download data file [here](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) and put this file inside your working directory.
+* To load the data run command ```psql -d news -f newsdata.sql```.
+* Now run ```psql news``` command to directly connect to the database and create the views given below.
 
 ## Views
 
 ___
 
-### To run python file without any error, create following views in your database
+### You don't need to create these views manually, There is a ```create_views.sql``` file in the repository that you cloned, it will automatically create the view. You just need to run ```psql -d news -f create_views.sql``` command
 
 ## 1) popular_articles view
 
-In this view
-
 ```sql
-create view popular_articles as
-select articles.author as author_id, articles.title, count(title) as views from articles, log where log.path like concat('/article/', articles.slug) group by articles.author, articles.title order by views desc;
+CREATE VIEW popular_articles AS
+SELECT articles.author as author_id,
+    articles.title,
+    count(title) as views
+FROM articles, log
+WHERE log.path = concat('/article/', articles.slug)
+GROUP BY articles.author, articles.title
+ORDER BY views DESC;
 ```
 
 ### The data in popular_articles view will look like this
@@ -60,7 +62,13 @@ select articles.author as author_id, articles.title, count(title) as views from 
 ## 2) popular_authors view
 
 ```sql
-create view popular_authors as select authors.name, sum(views) as total_views from authors, popular_articles where authors.id = popular_articles.author_id group by authors.name order by total_views desc;
+CREATE VIEW popular_authors AS
+SELECT authors.name,
+    sum(views) AS total_views
+FROM authors, popular_articles
+where authors.id = popular_articles.author_id
+GROUP BY authors.name
+ORDER BY total_views DESC;
 ```
 
 ### The data in popular_authors view will look like this
@@ -75,11 +83,26 @@ create view popular_authors as select authors.name, sum(views) as total_views fr
 ## 3) error_log view
 
 ```sql
-create view error_log as select time, Total, Error, (Error::float * 100)/Total::float as Percentage from ( select time::date, count(status) as Total, sum(case when status = '404 NOT FOUND' then 1 else 0 end) as Error from log group by time::date ) as result where (Error::float * 100)/Total > 1.0 order by Percentage desc;
+CREATE VIEW error_log AS
+SELECT time, Total, Error, (Error::float * 100)/Total::float as Percentage FROM
+    ( select time::date,
+        count(status) as Total,
+        sum(case when status = '404 NOT FOUND' then 1 else 0 end) as Error from log
+    GROUP BY time::date ) as result
+WHERE (Error::float * 100)/Total > 1.0
+ORDER BY Percentage DESC;
 ```
 
-### The data in error_log view will look like this
+### The data in the error_log view will look like this
 
 |time | total   | error  | percentage |
 |-----:|:-------:|:------:|:-------|
-| 2016-07-17 | 55907 |  1265 | 2.26268624680273 |
+| Jul 17, 2016 | 55907 |  1265 | 2.26268624680273 |
+
+## How to run the program file to get the result
+
+___
+
+* Navigate to the cloned directory and run ```ls``` command to make sure ```logs_analytics.py``` file is there.
+* Open terminal and run ```python logs_analytics.py``` command.
+* That's it, You will get the result in the terminal.

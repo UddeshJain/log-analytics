@@ -2,43 +2,53 @@
 
 import psycopg2
 
-try:
-    db = psycopg2.connect("dbname=news")
-    c = db.cursor()
-except:
-    print('Can not connect to database.')
+
+def execute_query(query):
+    try:
+        db = psycopg2.connect("dbname=news")
+        c = db.cursor()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+        c.execute(query)
+        results = c.fetchall()
+        db.close()
+        return results
 
 
 def get_popular_article():
     # Prints the most popular three articles of all time
     query = 'select title, views from popular_articles limit 3'
-    c.execute(query)
-    result = c.fetchall()
+    results = execute_query(query)
     print('Most popular three articles of all time:')
-    for i in range(len(result)):
-        print("\t" + result[i][0] + " - " + str(result[i][1]) + " views")
+    for title, views in results:
+        print('\t{} - {} views'.format(title, views))
 
 
 def get_popular_authors():
     # Prints the most popular authors of all time
     query = 'select name, total_views from popular_authors'
-    c.execute(query)
-    result = c.fetchall()
+    results = execute_query(query)
     print('\n\nMost popular authors of all time:')
-    for i in range(len(result)):
-        print("\t" + result[i][0] + " - " + str(result[i][1]) + " views")
+    for name, views in results:
+        print('\t{} - {} views'.format(name, views))
 
 
 def get_error_logs():
     # Days when more than 1% of requests lead to errors
-    query = 'select time, percentage from error_log'
-    c.execute(query)
-    result = c.fetchall()
+    query = "select to_char( time, 'Mon DD, YYYY'), percentage from error_log"
+    results = execute_query(query)
     print('\n\ndays when more than 1% of requests lead to errors:')
-    for i in range(len(result)):
-        print("\t" + str(result[i][0]) + " - " + str('%.2f'%result[i][1]) + " %")
+    for date, percent in results:
+        print('\t{} - {} %'.format(date, '%.2f' % percent))
+
 
 # Function calls
-get_popular_article()
-get_popular_authors()
-get_error_logs()
+def main():
+    """Generate report."""
+    get_popular_article()
+    get_popular_authors()
+    get_error_logs()
+
+
+if __name__ == '__main__':
+    main()

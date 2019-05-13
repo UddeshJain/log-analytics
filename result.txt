@@ -12,4 +12,4 @@ Most popular authors of all time:
 
 
 days when more than 1% of requests lead to errors:
-	2016-07-17 - 2.26 %
+	Jul 17, 2016 - 2.26 %
