@@ -9,10 +9,10 @@ def execute_query(query):
         c = db.cursor()
     except (Exception, psycopg2.DatabaseError) as error:
         print(error)
-        c.execute(query)
-        results = c.fetchall()
-        db.close()
-        return results
+    c.execute(query)
+    results = c.fetchall()
+    db.close()
+    return results
 
 
 def get_popular_article():

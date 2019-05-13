@@ -1,6 +1,6 @@
 # Log Analytics
 
-Log Analytics is first the project for Udacity's Full Stack Web Developer Nanodegree Program.
+Log Analytics is the first project for Udacity's Full Stack Web Developer Nanodegree Program.
 
 ## Project Overview
 
@@ -23,7 +23,7 @@ ___
 * To start virtual machine run command ```vagrant up``` in the terminal, it will take some time so be patience.
 * When ```vagrant up``` is finished running you will get your shell prompt back. At this point, you can run ```vagrant ssh``` to log in to your newly installed Linux VM!
 * Inside the VM, change directory to ```/vagrant```.
-* Now download data file [here](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) and put this file inside your working directory.
+* Now download data file from [here](https://d17h27t6h515a5.cloudfront.net/topher/2016/August/57b5f748_newsdata/newsdata.zip) and put this file inside your working directory.
 * To load the data run command ```psql -d news -f newsdata.sql```.
 * Now run ```psql news``` command to directly connect to the database and create the views given below.
 
@@ -31,7 +31,7 @@ ___
 
 ___
 
-### You don't need to create these views manually, There is a ```create_views.sql``` file in the repository that you cloned, it will automatically create the view. You just need to run ```psql -d news -f create_views.sql``` command
+ You don't need to create these views manually, There is a ```create_views.sql``` file in the repository that you cloned, it will automatically create the view. You just need to run ```psql -d news -f create_views.sql``` command.
 
 ## 1) popular_articles view
 
@@ -99,7 +99,7 @@ ORDER BY Percentage DESC;
 |-----:|:-------:|:------:|:-------|
 | Jul 17, 2016 | 55907 |  1265 | 2.26268624680273 |
 
-## How to run the program file to get the result
+## How to run the python file
 
 ___
 
