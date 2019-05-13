@@ -4,8 +4,6 @@ Log Analytics is the first project for Udacity's Full Stack Web Developer Nanode
 
 ## Project Overview
 
-___
-
 This is an internal reporting tool for newspaper site to discover what kind of articles the site's readers like and it also shows the error log for a particular date. This project uses **_Python3_** programming language and **_Postgresql_** as Database. It mainly fulfills three queries.
 
     1. What are the most popular three articles of all time?
@@ -13,8 +11,6 @@ This is an internal reporting tool for newspaper site to discover what kind of a
     3. On which days did more than 1% of requests lead to errors?
 
 ## Instructions
-
-___
 
 * Download and install [python](https://www.python.org/)
 * Download and install [virtual box](https://www.virtualbox.org/)
@@ -28,8 +24,6 @@ ___
 * Now run ```psql news``` command to directly connect to the database and create the views given below.
 
 ## Views
-
-___
 
  You don't need to create these views manually, There is a ```create_views.sql``` file in the repository that you cloned, it will automatically create the view. You just need to run ```psql -d news -f create_views.sql``` command.
 
@@ -100,8 +94,6 @@ ORDER BY Percentage DESC;
 | Jul 17, 2016 | 55907 |  1265 | 2.26268624680273 |
 
 ## How to run the python file
-
-___
 
 * Navigate to the cloned directory and run ```ls``` command to make sure ```logs_analytics.py``` file is there.
 * Open terminal and run ```python logs_analytics.py``` command.
